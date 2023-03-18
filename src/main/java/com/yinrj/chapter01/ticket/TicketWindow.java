@@ -23,6 +23,11 @@ public class TicketWindow extends Thread{
         this.name = name;
     }
 
+    public TicketWindow(Runnable task, String name) {
+        super(task);
+        this.name = name;
+    }
+
     @Override
     public void run() {
         while (index <= MAX) {
@@ -31,16 +36,18 @@ public class TicketWindow extends Thread{
     }
 
     public static void main(String[] args) {
-        TicketWindow window1 = new TicketWindow("一号机器");
+        final TicketWindowRunnable runnable = new TicketWindowRunnable();
+
+        TicketWindow window1 = new TicketWindow(runnable, "一号机器");
         window1.start();
 
-        TicketWindow window2 = new TicketWindow("二号机器");
+        TicketWindow window2 = new TicketWindow(runnable, "二号机器");
         window2.start();
 
-        TicketWindow window3 = new TicketWindow("三号机器");
+        TicketWindow window3 = new TicketWindow(runnable, "三号机器");
         window3.start();
 
-        TicketWindow window4 = new TicketWindow("四号机器");
+        TicketWindow window4 = new TicketWindow(runnable, "四号机器");
         window4.start();
     }
 }
